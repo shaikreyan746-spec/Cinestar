@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#050d16">
+<title>CineStar — Your Movie Destination</title>
+<style>
+:root{--bg:#050d16;--panel:#0b1826;--panel2:#102236;--text:#f4f7fb;--muted:#9aafc3;--gold:#ffd21f;--line:#20374b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:24px;padding:14px clamp(16px,4vw,54px);background:#06101deF;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}
+.logo{font-size:1.6rem;font-weight:900;white-space:nowrap;letter-spacing:-1px}.logo b{color:var(--gold)}.logo span{color:var(--gold);font-size:1.9rem}
+nav{display:flex;gap:18px;align-items:center}nav a{color:#d5e0ea;text-decoration:none}nav a:hover{color:var(--gold)}
+.search{margin-left:auto;display:flex;gap:8px;max-width:360px;width:100%}.search input{min-width:0;width:100%;border:1px solid #29435b;border-radius:30px;padding:10px 16px;background:#0b1a2a;color:white;outline:none}.search input:focus{border-color:var(--gold)}
+.hero{min-height:350px;padding:52px clamp(18px,5vw,64px);display:flex;align-items:center;background:linear-gradient(90deg,rgba(3,10,17,.98) 0%,rgba(3,10,17,.86) 42%,rgba(3,10,17,.15) 100%),radial-gradient(ellipse at 75% 40%,#8b4219 0%,#2b1b23 32%,#07111e 72%);border-bottom:1px solid var(--line)}
+.hero-content{max-width:570px}.eyebrow{display:inline-block;background:var(--gold);color:#171717;border-radius:5px;padding:3px 9px;font-size:.8rem;font-weight:800}.hero h1{font-size:clamp(2.3rem,6vw,4.4rem);line-height:1.04;margin:16px 0 12px;letter-spacing:-2px}.meta{color:#d4dfeb;display:flex;gap:14px;flex-wrap:wrap}.rating{color:var(--gold);font-weight:800}.hero p{max-width:510px;color:#d0dbe5}.btn{border:0;border-radius:24px;padding:11px 18px;font-weight:800;background:var(--gold);color:#121820}.btn.secondary{background:transparent;border:1px solid #b4c3d1;color:white}.btn:hover{filter:brightness(1.08)}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+main{padding:26px clamp(16px,4vw,54px) 42px}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 14px}.section-head h2{font-size:1.35rem;margin:0}.text-button{border:0;background:none;color:var(--gold);font-weight:800}
+.categories{display:grid;grid-template-columns:repeat(8,minmax(90px,1fr));gap:10px;margin-bottom:28px}.category{border:1px solid var(--line);border-radius:10px;min-height:78px;padding:16px 8px;background:linear-gradient(145deg,#17314a,#0b1724);color:white;font-weight:800}.category:hover,.category.active{border-color:var(--gold);color:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:16px}.movie{min-width:0;cursor:pointer}.poster{aspect-ratio:2/3;border-radius:9px;overflow:hidden;border:1px solid #253b50;background:linear-gradient(150deg,var(--c1),var(--c2));display:flex;align-items:end;padding:12px;position:relative;isolation:isolate}.poster:before{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.8),transparent 65%);z-index:-1}.poster:after{content:"";position:absolute;width:140%;height:50%;top:5%;left:-20%;background:radial-gradient(ellipse,rgba(255,255,255,.15),transparent 65%);transform:rotate(-22deg);z-index:-1}.poster .art{position:absolute;inset:14% 7% 24%;display:grid;place-items:center;font-size:clamp(2.4rem,5vw,4.5rem);filter:drop-shadow(0 5px 10px #0008)}.poster .poster-title{font-size:1.08rem;font-weight:950;text-transform:uppercase;letter-spacing:-.5px;text-shadow:0 2px 8px #000;line-height:1.05}.movie h3{font-size:.95rem;margin:8px 0 2px;line-height:1.25}.sub{font-size:.8rem;color:var(--muted)}.movie .rating{font-size:.82rem}.movie:hover .poster{transform:translateY(-3px);border-color:var(--gold)}.poster{transition:.18s}
+.trailers{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.trailer{background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden}.trailer-art{height:125px;display:grid;place-items:center;background:radial-gradient(circle at 65% 25%,var(--c1),transparent 38%),linear-gradient(120deg,var(--c2),#07111e);font-size:3rem}.trailer-info{padding:12px}.trailer-info strong{display:block}.trailer-info small{color:var(--muted)}
+.empty{color:var(--muted);padding:20px 0}.footer{border-top:1px solid var(--line);padding:25px clamp(16px,4vw,54px);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:var(--muted)}.footer strong{color:white}.notice{font-size:.85rem;color:var(--muted);margin-top:24px;max-width:900px}
+.modal{display:none;position:fixed;inset:0;z-index:30;background:#000c;padding:18px;overflow:auto;align-items:center;justify-content:center}.modal.open{display:flex}.dialog{width:min(760px,100%);background:#0b1826;border:1px solid #2b4359;border-radius:16px;padding:22px;position:relative}.close{position:absolute;right:14px;top:10px;border:0;background:none;color:white;font-size:1.8rem}.dialog h2{margin:0 40px 8px 0}.dialog p{color:#c0cedb}.video-box{aspect-ratio:16/9;background:#02060a;border-radius:10px;display:grid;place-items:center;margin:15px 0;overflow:hidden}.video-box iframe{width:100%;height:100%;border:0}.video-box .placeholder{text-align:center;padding:20px;color:var(--muted)}.video-box .placeholder a{color:var(--gold)}.watchlist-tag{color:var(--gold);font-weight:800}
+@media(max-width:950px){.categories{grid-template-columns:repeat(4,1fr)}.grid{grid-template-columns:repeat(4,minmax(0,1fr))}.trailers{grid-template-columns:repeat(2,minmax(0,1fr))}nav{gap:10px}}
+@media(max-width:650px){.topbar{gap:12px;flex-wrap:wrap}.logo{font-size:1.35rem}nav{order:3;width:100%;overflow:auto;padding-bottom:2px}nav a{white-space:nowrap;font-size:.9rem}.search{max-width:none;width:calc(100% - 130px)}.hero{min-height:320px;padding-top:38px;padding-bottom:38px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.categories{grid-template-columns:repeat(2,1fr)}.trailers{grid-template-columns:1fr}.trailer-art{height:150px}.hero h1{letter-spacing:-1px}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo"><span>★</span> Cine<b>Star</b></div>
+  <nav aria-label="Main navigation"><a href="#home">⌂ Home</a><a href="#movies">Movies</a><a href="#categories">Categories</a><a href="#top-rated">★ Top Rated</a><a href="#watchlist">♡ Watchlist <span id="watch-count"></span></a></nav>
+  <div class="search"><input id="search" type="search" placeholder="Search movies or genres…" aria-label="Search movies"></div>
+</header>
+<section class="hero" id="home">
+  <div class="hero-content">
+    <span class="eyebrow">CINESTAR FEATURE</span>
+    <h1>Find your next<br>favorite movie.</h1>
+    <div class="meta"><span class="rating">★ 9.0/10</span><span>Adventure</span><span>Sci-Fi</span></div>
+    <p>Explore movie details, discover genres, save your watchlist, and find official trailers—all in one place.</p>
+    <div class="actions"><button class="btn" id="hero-browse">Explore Movies →</button><button class="btn secondary" id="hero-trailer">Find a Trailer ▶</button></div>
+  </div>
+</section>
+<main>
+  <section id="categories">
+    <div class="section-head"><h2>Browse by Category</h2><button class="text-button" id="clear-filter">View All →</button></div>
+    <div class="categories" id="category-list"></div>
+  </section>
+  <section id="movies">
+    <div class="section-head"><h2 id="movie-heading">Featured Movies</h2><span class="sub" id="result-count"></span></div>
+    <div class="grid" id="movie-grid"></div>
+    <div class="empty" id="empty" hidden>No movies match your search. Try another title or genre.</div>
+  </section>
+  <section id="top-rated" style="margin-top:34px">
+    <div class="section-head"><h2>Top Rated</h2><span class="sub">Sorted by rating</span></div>
+    <div class="grid" id="top-grid"></div>
+  </section>
+  <section id="trailers" style="margin-top:34px">
+    <div class="section-head"><h2>Trailer Finder</h2><span class="sub">Search official trailers on YouTube</span></div>
+    <div class="trailers" id="trailer-grid"></div>
+  </section>
+  <section id="watchlist" style="margin-top:34px">
+    <div class="section-head"><h2>My Watchlist</h2><span class="sub">Saved on this device</span></div>
+    <div class="grid" id="watch-grid"></div><div class="empty" id="watch-empty">Your watchlist is empty. Open a movie and tap “Add to Watchlist”.</div>
+  </section>
+  <p class="notice">CineStar is a movie discovery demo. It does not host copyrighted films. Trailer buttons search for official or authorized trailer uploads; only stream videos you own or have permission to share. Movie titles, ratings, and descriptions here are sample demo content.</p>
+</main>
+<footer class="footer"><div><strong>★ CineStar</strong><br>Your Movie Destination</div><div>Home · Movies · Categories · Watchlist</div><div>Made for movie fans ⭐</div></footer>
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="dialog-title">
+  <div class="dialog"><button class="close" id="close-modal" aria-label="Close">×</button><h2 id="dialog-title"></h2><div class="meta" id="dialog-meta"></div><p id="dialog-description"></p><div class="video-box" id="video-box"><div class="placeholder">Trailer finder<br><small>Choose “Find official trailer” to search for a trailer.</small></div></div><div class="actions"><button class="btn" id="find-trailer">▶ Find Official Trailer</button><button class="btn secondary" id="toggle-watch">♡ Add to Watchlist</button></div></div>
+</div>
+<script>
+const movies=[
+ {id:1,title:"Dune: Part Two",year:2024,genre:"Sci-Fi",genres:["Sci-Fi","Adventure"],rating:8.8,emoji:"🏜️",c1:"#d56b1c",c2:"#321b27",description:"Paul Atreides joins Chani and the Fremen on an epic journey across Arrakis.",query:"Dune Part Two official trailer Warner Bros"},
+ {id:2,title:"Spider-Man: No Way Home",year:2021,genre:"Action",genres:["Action","Adventure"],rating:8.2,emoji:"🕷️",c1:"#c32d25",c2:"#151d42",description:"A superhero adventure about identity, responsibility, and unexpected visitors.",query:"Spider-Man No Way Home official trailer Sony Pictures"},
+ {id:3,title:"Oppenheimer",year:2023,genre:"Drama",genres:["Drama","History"],rating:8.3,emoji:"☢️",c1:"#f18a28",c2:"#45201d",description:"A historical drama about the scientists and decisions behind a world-changing project.",query:"Oppenheimer official trailer Universal Pictures"},
+ {id:4,title:"The Batman",year:2022,genre:"Crime",genres:["Action","Crime"],rating:7.8,emoji:"🦇",c1:"#8c2c26",c2:"#101522",description:"A dark detective story follows Gotham's masked vigilante as he investigates corruption.",query:"The Batman 2022 official trailer Warner Bros"},
+ {id:5,title:"Interstellar",year:2014,genre:"Sci-Fi",genres:["Sci-Fi","Drama"],rating:8.7,emoji:"🚀",c1:"#b9d5e2",c2:"#182b46",description:"Explorers travel beyond Earth in a search for humanity's future.",query:"Interstellar official trailer Paramount Pictures"},
+ {id:6,title:"The Avengers",year:2012,genre:"Action",genres:["Action","Adventure"],rating:8.0,emoji:"🛡️",c1:"#1c6d94",c2:"#171c2d",description:"A team of extraordinary heroes comes together to protect the planet.",query:"Marvel Avengers 2012 official trailer Marvel Entertainment"},
+ {id:7,title:"Joker",year:2019,genre:"Drama",genres:["Drama","Crime"],rating:8.4,emoji:"🎭",c1:"#63836c",c2:"#25322e",description:"A character study set in Gotham, exploring isolation and a troubled comedian.",query:"Joker 2019 official trailer Warner Bros"},
+ {id:8,title:"Deadpool & Wolverine",year:2024,genre:"Comedy",genres:["Action","Comedy"],rating:7.8,emoji:"⚔️",c1:"#b72223",c2:"#152b44",description:"An irreverent superhero team-up packed with action and comedy.",query:"Deadpool Wolverine official trailer Marvel Entertainment"},
+ {id:9,title:"Inside Out 2",year:2024,genre:"Animation",genres:["Animation","Comedy"],rating:7.6,emoji:"😊",c1:"#5c78ca",c2:"#48256f",description:"A family animation returns to the mind as new emotions arrive.",query:"Inside Out 2 official trailer Pixar"},
+ {id:10,title:"The Martian",year:2015,genre:"Adventure",genres:["Sci-Fi","Adventure"],rating:8.0,emoji:"🪐",c1:"#c36e35",c2:"#372b28",description:"An astronaut uses science and ingenuity to survive while awaiting rescue.",query:"The Martian official trailer 20th Century Studios"},
+ {id:11,title:"Coco",year:2017,genre:"Animation",genres:["Animation","Adventure"],rating:8.4,emoji:"🎸",c1:"#f0a52b",c2:"#74304c",description:"A young musician enters a colorful world of family memories and music.",query:"Coco Pixar official trailer"},
+ {id:12,title:"Knives Out",year:2019,genre:"Mystery",genres:["Mystery","Comedy"],rating:7.9,emoji:"🔎",c1:"#a4a06a",c2:"#273f3b",description:"A detective investigates a tangled family mystery after a famous author's death.",query:"Knives Out official trailer Lionsgate"}
+];
+const categories=["All","Action","Adventure","Animation","Comedy","Crime","Drama","Mystery","Sci-Fi","History"];
+let activeCategory="All", selectedMovie=null;
+const $=id=>document.getElementById(id);
+const saved=()=>{try{return JSON.parse(localStorage.getItem("cinestar-watchlist")||"[]")}catch{return []}};
+const setSaved=list=>{localStorage.setItem("cinestar-watchlist",JSON.stringify(list));renderWatchlist()};
+function poster(m){return `<div class="poster" style="--c1:${m.c1};--c2:${m.c2}"><span class="art" aria-hidden="true">${m.emoji}</span><span class="poster-title">${m.title}</span></div>`}
+function card(m){return `<article class="movie" tabindex="0" role="button" aria-label="Details for ${m.title}" data-id="${m.id}">${poster(m)}<h3>${m.title}</h3><div class="rating">★ ${m.rating.toFixed(1)}</div><div class="sub">${m.year} · ${m.genre}</div></article>`}
+function bindCards(root){root.querySelectorAll(".movie").forEach(el=>{const open=()=>openMovie(Number(el.dataset.id));el.addEventListener("click",open);el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open()}})})}
+function renderCategories(){$("category-list").innerHTML=categories.map(c=>`<button class="category ${c===activeCategory?"active":""}" data-cat="${c}">${c==="All"?"✦ ": "✧ "}${c}</button>`).join("");$("category-list").querySelectorAll("button").forEach(b=>b.onclick=()=>{activeCategory=b.dataset.cat;renderCategories();renderMovies()})}
+function renderMovies(){const q=$("search").value.trim().toLowerCase();const list=movies.filter(m=>(activeCategory==="All"||m.genres.includes(activeCategory))&&(!q||(m.title+" "+m.genre+" "+m.genres.join(" ")).toLowerCase().includes(q)));$("movie-grid").innerHTML=list.map(card).join("");$("empty").hidden=!!list.length;$("result-count").textContent=`${list.length} titles`;$("movie-heading").textContent=q?`Search Results`:activeCategory==="All"?"Featured Movies":`${activeCategory} Movies`;bindCards($("movie-grid"))}
+function renderTop(){const list=[...movies].sort((a,b)=>b.rating-a.rating).slice(0,6);$("top-grid").innerHTML=list.map(card).join("");bindCards($("top-grid"))}
+function renderTrailers(){$("trailer-grid").innerHTML=movies.slice(0,4).map(m=>`<article class="trailer"><div class="trailer-art" style="--c1:${m.c1};--c2:${m.c2}">${m.emoji}</div><div class="trailer-info"><strong>${m.title}</strong><small>${m.year} · Official trailer search</small><p><button class="text-button" data-trailer="${m.id}">▶ Find trailer →</button></p></div></article>`).join("");$("trailer-grid").querySelectorAll("[data-trailer]").forEach(b=>b.onclick=()=>findTrailer(movies.find(m=>m.id===Number(b.dataset.trailer))))}
+function renderWatchlist(){const list=movies.filter(m=>saved().includes(m.id));$("watch-grid").innerHTML=list.map(card).join("");$("watch-empty").hidden=!!list.length;$("watch-count").textContent=list.length?`(${list.length})`:"";bindCards($("watch-grid"))}
+function openMovie(id){selectedMovie=movies.find(m=>m.id===id);if(!selectedMovie)return;$("dialog-title").textContent=selectedMovie.title;$("dialog-meta").innerHTML=`<span class="rating">★ ${selectedMovie.rating.toFixed(1)}/10</span><span>${selectedMovie.year}</span><span>${selectedMovie.genres.join(" · ")}</span>`;$("dialog-description").textContent=selectedMovie.description;$("video-box").innerHTML=`<div class="placeholder">${selectedMovie.emoji}<br>Trailer finder for ${selectedMovie.title}<br><small>Use the button below to search for an official trailer.</small></div>`;updateWatchButton();$("modal").classList.add("open")}
+function closeModal(){$("modal").classList.remove("open")}
+function updateWatchButton(){if(!selectedMovie)return;const has=saved().includes(selectedMovie.id);$("toggle-watch").textContent=has?"✓ Added to Watchlist":"♡ Add to Watchlist";$("toggle-watch").classList.toggle("btn",!has);$("toggle-watch").classList.toggle("secondary",has)}
+function findTrailer(m){if(!m)return;window.open("https://www.youtube.com/results?search_query="+encodeURIComponent(m.query)," _blank","noopener,noreferrer")}
+$("search").addEventListener("input",renderMovies);$("clear-filter").onclick=()=>{activeCategory="All";$("search").value="";renderCategories();renderMovies()};$("hero-browse").onclick=()=>$("movies").scrollIntoView({behavior:"smooth"});$("hero-trailer").onclick=()=>findTrailer(movies[0]);$("close-modal").onclick=closeModal;$("modal").addEventListener("click",e=>{if(e.target===$("modal"))closeModal()});document.addEventListener("keydown",e=>{if(e.key==="Escape")closeModal()});
+$("toggle-watch").onclick=()=>{if(!selectedMovie)return;const list=saved();const next=list.includes(selectedMovie.id)?list.filter(id=>id!==selectedMovie.id):[...list,selectedMovie.id];setSaved(next);updateWatchButton()};
+$("find-trailer").onclick=()=>findTrailer(selectedMovie);
+renderCategories();renderMovies();renderTop();renderTrailers();renderWatchlist();
+</script>
+</body>
+</html>
